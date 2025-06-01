@@ -5,6 +5,11 @@ class StreamingJsonParser:
     This parser handles a subset of JSON, where values consist solely of strings and objects.
     It can return the current state of the parsed JSON object at any point, even with incomplete data.
     String values can be partially returned, but keys are only included once their value type is determined.
+    
+    Note: This implementation assumes:
+    - Only strings and objects are supported (no arrays, numbers, booleans, or null)
+    - Escape sequences in strings aren't handled
+    - Duplicate keys aren't supported
     """
     
     def __init__(self):
@@ -44,6 +49,7 @@ class StreamingJsonParser:
             
             # Handle string parsing
             if self.is_parsing_string:
+                # Simple check for quote - the requirements mention escape sequences aren't expected
                 if char == '"' and (i == 0 or self.buffer[i-1] != '\\'):
                     self.is_parsing_string = False
                     
@@ -107,6 +113,8 @@ class StreamingJsonParser:
             self._add_to_current_object(self.current_key, self.partial_string)
         
         # Clear processed buffer
+        # In a production environment, we might want to keep unprocessed data
+        # but for this challenge's scope, clearing is fine
         self.buffer = ""
         
     def _add_to_current_object(self, key, value):

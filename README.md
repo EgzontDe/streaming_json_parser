@@ -51,17 +51,17 @@ from streaming_json_parser import StreamingJsonParser
 parser = StreamingJsonParser()
 
 # Consume chunks of JSON data
-parser.consume('{"foo": "bar", ')
-parser.consume('"baz": "qux"}')
+parser.consume('{"foo": ')
+parser.consume('"bar"}')
 
 # Get the current state of the parsed JSON
 result = parser.get()
-print(result)  # {'foo': 'bar', 'baz': 'qux'}
+print(result)  # {'foo': 'bar'}
 
 # Works with partial data too
 parser = StreamingJsonParser()
-parser.consume('{"user": "John", "country": "Switzerl')
-print(parser.get())  # {'user': 'John', 'country': 'Switzerl'}
+parser.consume('{"test": "hello", "country": "Switzerl')
+print(parser.get())  # {'test': 'hello', 'country': 'Switzerl'}
 ```
 
 ## API
