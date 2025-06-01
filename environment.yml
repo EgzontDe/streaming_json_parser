@@ -1,0 +1,8 @@
+name: streaming_json_parser
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - pytest==7.4.0
